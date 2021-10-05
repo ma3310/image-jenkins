@@ -1,11 +1,15 @@
-# docker build -t ma3310/jenkins:lts-jdk11-docker .
+# docker build -t ma3310/jenkins:lts-jdk11-tools .
 # If build image hehind proxy add below command line option:
 #   --build-arg JAVA_TOOL_OPTIONS="-Dhttps.proxyHost=PROXY_HOST -Dhttps.proxyPort=PROXY_PORT -Dhttp.nonProxyHosts=localhost|127.*|[::1]"
 FROM jenkins/jenkins:lts-jdk11
 USER root
 RUN apt-get update && apt-get install -y apt-transport-https \
-  ca-certificates curl gnupg2 \
-  software-properties-common
+  ca-certificates \
+  curl \ 
+  gnupg2 \
+  procps \
+  software-properties-common \
+  vim
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN apt-key fingerprint 0EBFCD88
 RUN add-apt-repository \
