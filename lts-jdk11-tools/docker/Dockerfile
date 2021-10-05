@@ -21,8 +21,8 @@ RUN add-apt-repository \
   $(lsb_release -cs) stable"
 RUN apt-get update && apt-get install -y docker-ce-cli \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN usermod -aG docker jenkins 
 USER jenkins
 
-# receive and export JAVA_TOOL_OPTIONS from Docker build command
-#ARG JAVA_TOOL_OPTIONS
+#ARG JAVA_TOOL_OPTIONS # receive and export JAVA_TOOL_OPTIONS from Docker build command
 RUN jenkins-plugin-cli --plugins "blueocean:1.25.0 docker-workflow:1.26"
